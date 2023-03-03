@@ -46,8 +46,6 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -275,12 +273,12 @@
                 
   <section class="tex2jax_ignore mathjax_ignore" id="naive-bayes-classification">
 <h1>5:Naive Bayes classification<a class="headerlink" href="#naive-bayes-classification" title="Permalink to this headline">¶</a></h1>
-<p>Naive Bayes classifiers are built on Bayes’ theorem, which we covered in some detail in the lecture. We are interested in finding the probability that data belongs to a class <span class="math notranslate nohighlight">\(L\)</span> given some set of observed features <span class="math notranslate nohighlight">\(x\)</span>, we call this the <em>posterior</em> distribution <span class="math notranslate nohighlight">\(P(L|x)\)</span></p>
+<p>Naive Bayes classifiers are built on Bayes’ theorem, which we covered in some detail in the lecture. We are interested in finding the probability that data belongs to a class $L$ given some set of observed features $x$, we call this the <em>posterior</em> distribution $P(L|x)$</p>
 <p>Recall from the lecture that</p>
-<p><span class="math notranslate nohighlight">\(P(L|x) = \frac{P(x|L)P(L)}{P(x)}\)</span></p>
-<p>Here <span class="math notranslate nohighlight">\(P(x|L)\)</span> is called the <em>likelihood</em> and is the probability of a observing a set of features given a particular label, <span class="math notranslate nohighlight">\(P(L)\)</span> is the <em>prior</em> and encodes what we already know about a system, for example if we were looking at an unbiased coin, then the <span class="math notranslate nohighlight">\(P(L)\)</span> for heads would be 0.5, if we suspected foul play and a biased coin, we could adjust our prior accordingly. Finally <span class="math notranslate nohighlight">\(P(x)\)</span> is called the <em>evidence</em> - generally this is hard to compute, but luckily we are only actually interested in the ratio of probabilities for different labels, so we can cancel this term out.</p>
-<p><span class="math notranslate nohighlight">\(\frac{P(L_1|x)}{P(L_2|x)} = \frac{P(x|L_1)P(L_1)}{P(x|L_2)P(L_2)}\)</span></p>
-<p>we just require a way of calculating <span class="math notranslate nohighlight">\(P(x|L)\)</span> - to do this we use a generative model, this is a model that generates new instances of the data.</p>
+<p>$P(L|x) = \frac{P(x|L)P(L)}{P(x)}$</p>
+<p>Here $P(x|L)$ is called the <em>likelihood</em> and is the probability of a observing a set of features given a particular label, $P(L)$ is the <em>prior</em> and encodes what we already know about a system, for example if we were looking at an unbiased coin, then the $P(L)$ for heads would be 0.5, if we suspected foul play and a biased coin, we could adjust our prior accordingly. Finally $P(x)$ is called the <em>evidence</em> - generally this is hard to compute, but luckily we are only actually interested in the ratio of probabilities for different labels, so we can cancel this term out.</p>
+<p>$\frac{P(L_1|x)}{P(L_2|x)} = \frac{P(x|L_1)P(L_1)}{P(x|L_2)P(L_2)}$</p>
+<p>we just require a way of calculating $P(x|L)$ - to do this we use a generative model, this is a model that generates new instances of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -425,12 +423,12 @@
 </div>
 <p>We can specify the parameters that describe the Gaussian distributions that we fitted to the original data.</p>
 <p>With all of this in hand we are in a position whereby we can calculate</p>
-<p><span class="math notranslate nohighlight">\(\frac{P(L_1|x)}{P(L_2|x)} = \frac{P(x|L_1)P(L_1)}{P(x|L_2)P(L_2)}\)</span></p>
-<p>In our case <span class="math notranslate nohighlight">\(x = [x_1, x_2]\)</span> as it is two dimensional. There is an additional nice property of Gaussian likelihoods, they are multiplicative so</p>
-<p><span class="math notranslate nohighlight">\(P([x_1, x_2]|L) = P(x_1|L)P(x_2|L)\)</span></p>
+<p>$\frac{P(L_1|x)}{P(L_2|x)} = \frac{P(x|L_1)P(L_1)}{P(x|L_2)P(L_2)}$</p>
+<p>In our case $x = [x_1, x_2]$ as it is two dimensional. There is an additional nice property of Gaussian likelihoods, they are multiplicative so</p>
+<p>$P([x_1, x_2]|L) = P(x_1|L)P(x_2|L)$</p>
 <p>Our priors for both classes here are 0.5 as we do not assume any bias, so the P(L) terms above just cancel.</p>
 <p>So:</p>
-<p><span class="math notranslate nohighlight">\(\frac{P(L_1|x)}{P(L_2|x)} = \frac{P(x_1|L_1)P(x_2|L1)}{P(x_1|L_2)P(x_2|L_2)}\)</span></p>
+<p>$\frac{P(L_1|x)}{P(L_2|x)} = \frac{P(x_1|L_1)P(x_2|L1)}{P(x_1|L_2)P(x_2|L_2)}$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Characterise Gaussians</span>
@@ -452,7 +450,7 @@
 <section id="calculate-the-log-likelihoods">
 <h3>Calculate the log-likelihoods<a class="headerlink" href="#calculate-the-log-likelihoods" title="Permalink to this headline">¶</a></h3>
 <p>In practice we calculate the log of the likelihoods as this is more numerically efficient.</p>
-<p><span class="math notranslate nohighlight">\(\log(p(y_0|x_1)p(y_0|x_2)) = \log(p(y_0|x_1)) + \log(p(y_0|x_2)) \)</span></p>
+<p>$\log(p(y_0|x_1)p(y_0|x_2)) = \log(p(y_0|x_1)) + \log(p(y_0|x_2)) $</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loglik_y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_1</span><span class="p">,</span> <span class="n">mu_0</span><span class="p">,</span> <span class="n">sig_0</span><span class="p">))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_2</span><span class="p">,</span> <span class="n">mu_2</span><span class="p">,</span> <span class="n">sig_2</span><span class="p">))</span>

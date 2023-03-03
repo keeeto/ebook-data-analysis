@@ -46,8 +46,6 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -57,6 +55,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4: Linear regression" href="lecture-4-linear-regression.html" />
     <link rel="prev" title="2: Clustering using k-means and GMM" href="lecture-2-clustering-kmeans-GMM.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -110,6 +109,16 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    3: Feature Engineering and Model Selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-4-linear-regression.html">
+   4: Linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-4-naive-bayes.html">
+   5:Naive Bayes classification
   </a>
  </li>
 </ul>
@@ -651,7 +660,7 @@
 </div>
 <p>It’s clear that we need a more sophisticated model to describe the relationship between x and y.</p>
 <p>One approach to this is to transform the data, adding extra columns of features to drive more flexibility in the model. For example, we can add polynomial features to the data this way.</p>
-<p>The derived feature matrix has one column representing <span class="math notranslate nohighlight">\(x\)</span>, and a second column representing <span class="math notranslate nohighlight">\(x^2\)</span>, and a third column representing <span class="math notranslate nohighlight">\(x^3\)</span></p>
+<p>The derived feature matrix has one column representing $x$, and a second column representing $x^2$, and a third column representing $x^3$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
@@ -1026,6 +1035,13 @@ Which degree do we think best fits to the data?</p>
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">2: Clustering using k-means and GMM</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="lecture-4-linear-regression.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">4: Linear regression</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             

@@ -46,8 +46,6 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -111,6 +109,16 @@
  <li class="toctree-l1">
   <a class="reference internal" href="lecture-3-model-selection.html">
    3: Feature Engineering and Model Selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-4-linear-regression.html">
+   4: Linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-4-naive-bayes.html">
+   5:Naive Bayes classification
   </a>
  </li>
 </ul>
@@ -335,7 +343,7 @@
 </ul>
 <p>Some extrnal resources that you might find useful:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://towardsdatascience.com/exploratory-data-analysis-in-python-a-step-by-step-process-d0dfa6bf94ee">https://towardsdatascience.com/exploratory-data-analysis-in-python-a-step-by-step-process-d0dfa6bf94ee</a></p></li>
+<li><p>https://towardsdatascience.com/exploratory-data-analysis-in-python-a-step-by-step-process-d0dfa6bf94ee</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -950,10 +958,10 @@ Kurtosis: 2.1049913235905557
 </section>
 <section id="explore-correlations-in-the-data">
 <h2>Explore correlations in the data<a class="headerlink" href="#explore-correlations-in-the-data" title="Permalink to this headline">¶</a></h2>
-<p>As we discussed in the lecture we might want to remove features in the data that are very closely related to one another. Imagine a data set that had one feature with temperature in F and one with temperature in C. Now these two features tell us exactly the same thing, but on a different scale. Later we will see that adding both to a model would be of no benifit, as they do not carry any extra information. To look for redundant information between features (<span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>) we can use the correlation.
-$<span class="math notranslate nohighlight">\(
+<p>As we discussed in the lecture we might want to remove features in the data that are very closely related to one another. Imagine a data set that had one feature with temperature in F and one with temperature in C. Now these two features tell us exactly the same thing, but on a different scale. Later we will see that adding both to a model would be of no benifit, as they do not carry any extra information. To look for redundant information between features ($x$ and $y$) we can use the correlation.
+$$
 r = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum(x_i - \bar{x})^2(y_i - \bar{y})^2}}
-\)</span>$</p>
+$$</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corrmat</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>

@@ -46,8 +46,6 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -57,6 +55,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="5:Naive Bayes classification" href="lecture-4-naive-bayes.html" />
     <link rel="prev" title="3: Feature Engineering and Model Selection" href="lecture-3-model-selection.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -115,6 +114,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    4: Linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-4-naive-bayes.html">
+   5:Naive Bayes classification
   </a>
  </li>
 </ul>
@@ -292,8 +296,8 @@
 <h1>4: Linear regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h1>
 <p>In this section we explore perhaps the simplest form of machine learnig, the venerable linear regression.</p>
 <p>Linear regression is simply fitting models of the form</p>
-<p><span class="math notranslate nohighlight">\(y = mx + c\)</span></p>
-<p>to our data. Here, as usual, <span class="math notranslate nohighlight">\(y\)</span> is the dependent variable, <span class="math notranslate nohighlight">\(x\)</span> is the independent variable. <span class="math notranslate nohighlight">\(m\)</span> is the slope of the line and <span class="math notranslate nohighlight">\(c\)</span> the intercept.</p>
+<p>$y = mx + c$</p>
+<p>to our data. Here, as usual, $y$ is the dependent variable, $x$ is the independent variable. $m$ is the slope of the line and $c$ the intercept.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -318,7 +322,7 @@
 <section id="fit-a-simple-model">
 <h2>Fit a simple model<a class="headerlink" href="#fit-a-simple-model" title="Permalink to this headline">¶</a></h2>
 <p>Let us set up some data that we want to fit. We will generate the data from a known equation:</p>
-<p><span class="math notranslate nohighlight">\(y = 2x + 5\)</span></p>
+<p>$y = 2x + 5$</p>
 <p>and we will add some random noise to the observed datapoints.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -401,9 +405,9 @@ Model intercept: -4.998577085553204
 <img alt="_images/lecture-4-linear-regression_10_1.png" src="_images/lecture-4-linear-regression_10_1.png" />
 </div>
 </div>
-<p>We now calculate some metrics to evaluate the model performance. Since we are doing linear regression, mean squared error, root mean squared and  <span class="math notranslate nohighlight">\(r^2\)</span> are useful metrics.</p>
+<p>We now calculate some metrics to evaluate the model performance. Since we are doing linear regression, mean squared error, root mean squared and  $r^2$ are useful metrics.</p>
 <p>Root mean squared error may be preferred sometime to mean squared error as it gives the metric in the same units as the underlying data.</p>
-<p><span class="math notranslate nohighlight">\(r^2\)</span> is often used to evaluate models - but one should exercise some caution in using <span class="math notranslate nohighlight">\(r^2\)</span> - here is an interesting discussion of some of the limitations: <a class="reference external" href="https://data.library.virginia.edu/is-r-squared-useless/">Is R-squared Useless?</a>.</p>
+<p>$r^2$ is often used to evaluate models - but one should exercise some caution in using $r^2$ - here is an interesting discussion of some of the limitations: <a class="reference external" href="https://data.library.virginia.edu/is-r-squared-useless/">Is R-squared Useless?</a>.</p>
 <p>We will use the metrics from <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> to calculate these values between the predicted and true values of the test set.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -427,7 +431,7 @@ r-squared: 0.95687909541779
 <section id="multiple-linear-regression">
 <h2>Multiple linear regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this headline">¶</a></h2>
 <p>The LinearRegression estimator is much more capable than this, however—in addition to simple straight-line fits, it can also handle multidimensional linear models of the form</p>
-<p><span class="math notranslate nohighlight">\(y=a0+a1x1+a2x2+⋯\)</span></p>
+<p>$y=a0+a1x1+a2x2+⋯$</p>
 <p>where there are multiple x values. Geometrically, this is akin to fitting a plane to points in three dimensions, or fitting a hyper-plane to points in higher dimensions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -453,8 +457,8 @@ r-squared: 0.95687909541779
 </section>
 <section id="basis-function-regression">
 <h2>Basis function regression<a class="headerlink" href="#basis-function-regression" title="Permalink to this headline">¶</a></h2>
-<p>Here we convert our single variable <span class="math notranslate nohighlight">\(x\)</span> to a an expression of several variables e.g. <span class="math notranslate nohighlight">\(x_1, x_2, x_3, \cdots\)</span></p>
-<p>This is particularly useful if you know that the relationship between the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is not linear, but you know a function (or basis) that can capture that relationship.</p>
+<p>Here we convert our single variable $x$ to a an expression of several variables e.g. $x_1, x_2, x_3, \cdots$</p>
+<p>This is particularly useful if you know that the relationship between the $x$ and $y$ is not linear, but you know a function (or basis) that can capture that relationship.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -471,7 +475,7 @@ r-squared: 0.95687909541779
 <img alt="_images/lecture-4-linear-regression_16_1.png" src="_images/lecture-4-linear-regression_16_1.png" />
 </div>
 </div>
-<p>We clearly can’t fit this with a simple <span class="math notranslate nohighlight">\(y = mx + c\)</span> - let’s try converting our <span class="math notranslate nohighlight">\(x\)</span> into a polynomial series <span class="math notranslate nohighlight">\(x = a_0+a_1x + a_2x^2 + a_3x^3 + a_4x^4 + a_5x^5 + a_6x^6\)</span></p>
+<p>We clearly can’t fit this with a simple $y = mx + c$ - let’s try converting our $x$ into a polynomial series $x = a_0+a_1x + a_2x^2 + a_3x^3 + a_4x^4 + a_5x^5 + a_6x^6$</p>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">PolynomialFeatures</span></code> class from scikit-learn - let’s put it in a pipeline, like we did before.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -749,6 +753,13 @@ r-squared: 0.5585616641154836
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">3: Feature Engineering and Model Selection</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="lecture-4-naive-bayes.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">5:Naive Bayes classification</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             
