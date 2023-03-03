@@ -275,27 +275,19 @@
 <h1>5:Naive Bayes classification<a class="headerlink" href="#naive-bayes-classification" title="Permalink to this headline">¶</a></h1>
 <p>Naive Bayes classifiers are built on Bayes’ theorem, which we covered in some detail in the lecture. We are interested in finding the probability that data belongs to a class $L$ given some set of observed features $x$, we call this the <em>posterior</em> distribution $P(L|x)$</p>
 <p>Recall from the lecture that</p>
-<p>$P(L|x) = \frac{P(x|L)P(L)}{P(x)}$</p>
+<p>$$
+P(L|x) = \frac{P(x|L)P(L)}{P(x)}
+$$</p>
 <p>Here $P(x|L)$ is called the <em>likelihood</em> and is the probability of a observing a set of features given a particular label, $P(L)$ is the <em>prior</em> and encodes what we already know about a system, for example if we were looking at an unbiased coin, then the $P(L)$ for heads would be 0.5, if we suspected foul play and a biased coin, we could adjust our prior accordingly. Finally $P(x)$ is called the <em>evidence</em> - generally this is hard to compute, but luckily we are only actually interested in the ratio of probabilities for different labels, so we can cancel this term out.</p>
-<p>$\frac{P(L_1|x)}{P(L_2|x)} = \frac{P(x|L_1)P(L_1)}{P(x|L_2)P(L_2)}$</p>
+<p>$$
+\frac{P(L_1|x)}{P(L_2|x)} = \frac{P(x|L_1)P(L_1)}{P(x|L_2)P(L_2)}
+$$</p>
 <p>we just require a way of calculating $P(x|L)$ - to do this we use a generative model, this is a model that generates new instances of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">f37efe67ea52</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;numpy&#39;
 </pre></div>
 </div>
 </div>
