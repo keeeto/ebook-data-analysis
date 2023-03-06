@@ -1,0 +1,1072 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>7: Multi-layer Perceptrons &#8212; Intro to Data Analysis and Machine Learning</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="6: Classification using decision trees" href="lecture-5-decision-trees-classification.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Intro to Data Analysis and Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Welcome to the Intro to Data Analysis and Machine Learning eBook
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-1-exploratory-data-analysis.html">
+   1: Exploratory data analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-2-clustering-kmeans-GMM.html">
+   2: Clustering using k-means and GMM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-3-model-selection.html">
+   3: Feature Engineering and Model Selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-4-linear-regression.html">
+   4: Linear regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-4-naive-bayes.html">
+   5:Naive Bayes classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecture-5-decision-trees-classification.html">
+   6: Classification using decision trees
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   7: Multi-layer Perceptrons
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/lecture-6-deep-neural-networks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/lecture-6-deep-neural-networks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   7: Multi-layer Perceptrons
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-dataset">
+   The dataset
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classification-by-dnn">
+   Classification by DNN
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#build-the-network-architecture">
+     1. Build the network architecture
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-input-layer">
+       The input layer
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-hidden-layers">
+       The hidden layers
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-output-layer">
+       The output layer
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#compile-the-model">
+     2. Compile the model
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#loss">
+       Loss
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#optimiser">
+       Optimiser
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#metric">
+       Metric
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-the-model">
+     3. Train the model
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#epochs">
+       Epochs
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#batch-size">
+       Batch size
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#validation-data">
+       Validation data
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-training-history">
+       Check training history
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regularise-and-re-train">
+     4. Regularise and re-train
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-predictions">
+     5. Make predictions
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercises">
+     Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>7: Multi-layer Perceptrons</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   7: Multi-layer Perceptrons
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-dataset">
+   The dataset
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classification-by-dnn">
+   Classification by DNN
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#build-the-network-architecture">
+     1. Build the network architecture
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-input-layer">
+       The input layer
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-hidden-layers">
+       The hidden layers
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-output-layer">
+       The output layer
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#compile-the-model">
+     2. Compile the model
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#loss">
+       Loss
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#optimiser">
+       Optimiser
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#metric">
+       Metric
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-the-model">
+     3. Train the model
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#epochs">
+       Epochs
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#batch-size">
+       Batch size
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#validation-data">
+       Validation data
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-training-history">
+       Check training history
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regularise-and-re-train">
+     4. Regularise and re-train
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-predictions">
+     5. Make predictions
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercises">
+     Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="multi-layer-perceptrons">
+<h1>7: Multi-layer Perceptrons<a class="headerlink" href="#multi-layer-perceptrons" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook, we will learn the basics of a Deep Neural Network (DNN) based on <a class="reference external" href="https://keras.io/">Keras</a>, a high-level API for building and training deep learning models, running on top of <a class="reference external" href="https://www.tensorflow.org/">TensorFlow</a>, an open source platform for machine learning.</p>
+<p>We will use the <code class="docutils literal notranslate"><span class="pre">fashion-mnist</span></code> dataset, which is useful for quick examples when learning the basics. In <span class="xref myst">DNN_practical.ipynb</span>, we will follow the same principles to practice with a more relevant scientific dataset. To understand how a DNN works, we will implement a fully connected DNN from scratch in <span class="xref myst">DNN_backprop.ipynb</span>,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># tensorflow</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">Dropout</span>
+
+<span class="c1"># check version</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using TensorFlow v</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="n">acc_str</span> <span class="o">=</span> <span class="s1">&#39;accuracy&#39;</span> <span class="k">if</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2.&#39;</span> <span class="k">else</span> <span class="s1">&#39;acc&#39;</span>
+
+<span class="c1"># helpers</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using TensorFlow v2.3.1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="the-dataset">
+<h1>The dataset<a class="headerlink" href="#the-dataset" title="Permalink to this headline">¶</a></h1>
+<p>To start with, we load the <code class="docutils literal notranslate"><span class="pre">fashion-mnist</span></code> dataset from Keras:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load dataset</span>
+<span class="n">fashion_mnist</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">fashion_mnist</span>
+<span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">fashion_mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="c1"># normalise images</span>
+<span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span> <span class="o">/</span> <span class="mf">255.0</span>
+<span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span> <span class="o">/</span> <span class="mf">255.0</span>
+
+<span class="c1"># string labels</span>
+<span class="n">string_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T-shirt&#39;</span><span class="p">,</span> <span class="s1">&#39;Trouser&#39;</span><span class="p">,</span> <span class="s1">&#39;Pullover&#39;</span><span class="p">,</span> <span class="s1">&#39;Dress&#39;</span><span class="p">,</span> <span class="s1">&#39;Coat&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;Sandal&#39;</span><span class="p">,</span> <span class="s1">&#39;Shirt&#39;</span><span class="p">,</span> <span class="s1">&#39;Sneaker&#39;</span><span class="p">,</span> <span class="s1">&#39;Bag&#39;</span><span class="p">,</span> <span class="s1">&#39;Ankle boot&#39;</span><span class="p">]</span>
+
+<span class="c1"># print info</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of training data: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_labels</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of test data: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_labels</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Image pixels: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">train_images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of classes: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of training data: 60000
+Number of test data: 10000
+Image pixels: (28, 28)
+Number of classes: 10
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can randomly plot some images and their labels:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># function to plot an image in a subplot</span>
+<span class="k">def</span> <span class="nf">subplot_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">iplot</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label2</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">label2_color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">iplot</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">label2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">label2_color</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mf">0.33</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    
+<span class="c1"># ramdomly plot some images and their labels</span>
+<span class="n">nrows</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">ncols</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">ncols</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span> <span class="o">*</span> <span class="mf">2.2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">iplot</span><span class="p">,</span> <span class="n">idata</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_labels</span><span class="p">),</span> <span class="n">nrows</span> <span class="o">*</span> <span class="n">ncols</span><span class="p">)):</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train_labels</span><span class="p">[</span><span class="n">idata</span><span class="p">],</span> <span class="n">string_labels</span><span class="p">[</span><span class="n">train_labels</span><span class="p">[</span><span class="n">idata</span><span class="p">]])</span>
+    <span class="n">subplot_image</span><span class="p">(</span><span class="n">train_images</span><span class="p">[</span><span class="n">idata</span><span class="p">],</span> <span class="n">label</span><span class="p">,</span> <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">iplot</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/lecture-6-deep-neural-networks_6_0.png" src="_images/lecture-6-deep-neural-networks_6_0.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="classification-by-dnn">
+<h1>Classification by DNN<a class="headerlink" href="#classification-by-dnn" title="Permalink to this headline">¶</a></h1>
+<p>Here we will create and train a DNN model to classify the images in <code class="docutils literal notranslate"><span class="pre">fashion-mnist</span></code>. With Keras, the task can be divided into three essential steps:</p>
+<ol class="simple">
+<li><p>Build the network architecture;</p></li>
+<li><p>Compile the model;</p></li>
+<li><p>Train the model.</p></li>
+</ol>
+<p>These steps may be repeated for a few times to improve the quality (accuracy and stability) of the model.</p>
+<section id="build-the-network-architecture">
+<h2>1. Build the network architecture<a class="headerlink" href="#build-the-network-architecture" title="Permalink to this headline">¶</a></h2>
+<p>Our first DNN will be a simple multi-layer perceptron with only one hidden layer, as shown in the following figure:</p>
+<p><img alt="dense.jpeg" src="https://github.com/stfc-sciml/sciml-workshop/blob/master/course_3.0_with_solutions/markdown_pic/dnn.png?raw=1" /></p>
+<p>In general, a network of this kind should include an input layer, some hidden layers and an output layer. In this example, all the layers will be <code class="docutils literal notranslate"><span class="pre">Dense</span></code> layers.</p>
+<section id="the-input-layer">
+<h3>The input layer<a class="headerlink" href="#the-input-layer" title="Permalink to this headline">¶</a></h3>
+<p>We first need to determine the dimensionality of the input layer. In this case, we flatten (using a <code class="docutils literal notranslate"><span class="pre">Flatten</span></code> layer) the images and feed them to the network. As the images are 28 $\times$ 28 in pixels, the input size will be 784.</p>
+</section>
+<section id="the-hidden-layers">
+<h3>The hidden layers<a class="headerlink" href="#the-hidden-layers" title="Permalink to this headline">¶</a></h3>
+<p>We use one hidden layer in this case and use <code class="docutils literal notranslate"><span class="pre">ReLU</span></code> as its activation function:</p>
+<blockquote>
+<div><p>$R(x)=\max(0,x)$</p>
+</div></blockquote>
+<p><strong>NOTE</strong>: Different activation functions are used for different tasks. Remember that <code class="docutils literal notranslate"><span class="pre">ReLU</span></code> generally performs well for training a network, but it can <em>only</em> be used in the hidden layers.</p>
+</section>
+<section id="the-output-layer">
+<h3>The output layer<a class="headerlink" href="#the-output-layer" title="Permalink to this headline">¶</a></h3>
+<p>We usually encode categorical data as a “one-hot” vector. In this case, we have a vector of length 10 on the output side, where each element corresponds to a class of apparel. Ideally, we hope the values to be either 1 or 0, with 1 for the correct class and 0 for the others, so we use <code class="docutils literal notranslate"><span class="pre">sigmoid</span></code> as the activation function for the output layer:</p>
+<blockquote>
+<div><p>$S(x) = \dfrac{1}{1 + e^{-x}}$</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># build the network architecture</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can take a look at the summary of the model using <code class="docutils literal notranslate"><span class="pre">model.summary()</span></code>. The number of trainable parameters of a layer = $P\times N+N$, where $P$ is the size of its precedent layer and $N$ its own size. Here $P\times N$ accounts for the weights of the $P\times N$ connections and $N$ for the biases of this layer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print summary</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+flatten (Flatten)            (None, 784)               0         
+_________________________________________________________________
+dense (Dense)                (None, 128)               100480    
+_________________________________________________________________
+dense_1 (Dense)              (None, 10)                1290      
+=================================================================
+Total params: 101,770
+Trainable params: 101,770
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="compile-the-model">
+<h2>2. Compile the model<a class="headerlink" href="#compile-the-model" title="Permalink to this headline">¶</a></h2>
+<p>Next, we need to compile our model. This is where we specify all sorts of hyperparameters associated with the model. Here are the most important ones:</p>
+<section id="loss">
+<h3>Loss<a class="headerlink" href="#loss" title="Permalink to this headline">¶</a></h3>
+<p>The loss is the objective function to be minimised during training. Gradients of the loss with respect to the model parameters, calculated by backpropagating the errors, determine the direction to update the model parameters. Follow <span class="xref myst">DNN_backprop.ipynb</span> to learn the details about <em>backpropagation</em> and <em>gradient descent</em>. In this case, we will use <code class="docutils literal notranslate"><span class="pre">SparseCategoricalCrossentropy</span></code> as the loss. The term <em>sparse</em> means that the output vector is sparse, with many more zeros than ones in the one-hot encoding.</p>
+</section>
+<section id="optimiser">
+<h3>Optimiser<a class="headerlink" href="#optimiser" title="Permalink to this headline">¶</a></h3>
+<p>An optimiser is an algorithm determining how the model parameters are updated based on the loss. One critical hyperparameter for the optimiser is the <em>learning rate</em>, which determines the magnitude to update the model parameters (also see <span class="xref myst">DNN_backprop.ipynb</span> for details). In many applications, <em>Adam</em> is usually a good choice at the beginning. We will use Adam in this example.</p>
+</section>
+<section id="metric">
+<h3>Metric<a class="headerlink" href="#metric" title="Permalink to this headline">¶</a></h3>
+<p>The metrics do not affect the training result but monitor the training process to give us a sense of how well the model is improving after seeing more data. We can also use them to choose between models at the end. In our case, we will monitor the <code class="docutils literal notranslate"><span class="pre">accuracy</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compile the model</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">(),</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="train-the-model">
+<h2>3. Train the model<a class="headerlink" href="#train-the-model" title="Permalink to this headline">¶</a></h2>
+<p>Now we can start to train the model with <code class="docutils literal notranslate"><span class="pre">fashion-mnist</span></code>. This is done by calling the <code class="docutils literal notranslate"><span class="pre">model.fit()</span></code> method, where we need to specify a few more parameters:</p>
+<section id="epochs">
+<h3>Epochs<a class="headerlink" href="#epochs" title="Permalink to this headline">¶</a></h3>
+<p>It is the number of times that the model will run through the entire dataset during training.</p>
+</section>
+<section id="batch-size">
+<h3>Batch size<a class="headerlink" href="#batch-size" title="Permalink to this headline">¶</a></h3>
+<p>It determines how many data will be used at a time to determine the gradient used for parameter update. Follow <span class="xref myst">DNN_backprop.ipynb</span> to learn more about <em>Batch</em>, <em>Mini-batch</em> and <em>Stochastic Gradient Descent</em>.</p>
+</section>
+<section id="validation-data">
+<h3>Validation data<a class="headerlink" href="#validation-data" title="Permalink to this headline">¶</a></h3>
+<p>Accuracy and loss can be computed and logged with a validation dataset passed to <code class="docutils literal notranslate"><span class="pre">model.fit()</span></code>. To make predictions with a confidence equivalent to that for training, the accuracy for the validation data should not differ too much from that for the training data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train the model</span>
+<span class="n">training_history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> 
+                             <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.5219 - accuracy: 0.8215 - val_loss: 0.4480 - val_accuracy: 0.8476
+Epoch 2/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.3864 - accuracy: 0.8620 - val_loss: 0.3906 - val_accuracy: 0.8601
+Epoch 3/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.3477 - accuracy: 0.8755 - val_loss: 0.3682 - val_accuracy: 0.8705
+Epoch 4/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.3230 - accuracy: 0.8826 - val_loss: 0.3696 - val_accuracy: 0.8642
+Epoch 5/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.3012 - accuracy: 0.8898 - val_loss: 0.3884 - val_accuracy: 0.8614
+Epoch 6/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.2852 - accuracy: 0.8944 - val_loss: 0.3630 - val_accuracy: 0.8745
+Epoch 7/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.2744 - accuracy: 0.8988 - val_loss: 0.3708 - val_accuracy: 0.8689
+Epoch 8/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2631 - accuracy: 0.9028 - val_loss: 0.3444 - val_accuracy: 0.8768
+Epoch 9/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2535 - accuracy: 0.9065 - val_loss: 0.3556 - val_accuracy: 0.8731
+Epoch 10/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2461 - accuracy: 0.9089 - val_loss: 0.3567 - val_accuracy: 0.8752
+Epoch 11/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2372 - accuracy: 0.9114 - val_loss: 0.3363 - val_accuracy: 0.8815
+Epoch 12/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2289 - accuracy: 0.9148 - val_loss: 0.3333 - val_accuracy: 0.8861
+Epoch 13/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2231 - accuracy: 0.9160 - val_loss: 0.3538 - val_accuracy: 0.8773
+Epoch 14/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2170 - accuracy: 0.9186 - val_loss: 0.3593 - val_accuracy: 0.8778
+Epoch 15/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2101 - accuracy: 0.9207 - val_loss: 0.3435 - val_accuracy: 0.8851
+Epoch 16/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.2041 - accuracy: 0.9238 - val_loss: 0.3540 - val_accuracy: 0.8815
+Epoch 17/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2015 - accuracy: 0.9255 - val_loss: 0.3457 - val_accuracy: 0.8851
+Epoch 18/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.1957 - accuracy: 0.9268 - val_loss: 0.3489 - val_accuracy: 0.8858
+Epoch 19/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.1910 - accuracy: 0.9285 - val_loss: 0.3506 - val_accuracy: 0.8904
+Epoch 20/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1838 - accuracy: 0.9310 - val_loss: 0.3598 - val_accuracy: 0.8869
+Epoch 21/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1805 - accuracy: 0.9326 - val_loss: 0.3565 - val_accuracy: 0.8876
+Epoch 22/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1776 - accuracy: 0.9331 - val_loss: 0.3485 - val_accuracy: 0.8869
+Epoch 23/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1731 - accuracy: 0.9351 - val_loss: 0.3727 - val_accuracy: 0.8784
+Epoch 24/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1706 - accuracy: 0.9359 - val_loss: 0.3765 - val_accuracy: 0.8860
+Epoch 25/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1650 - accuracy: 0.9381 - val_loss: 0.3844 - val_accuracy: 0.8832
+Epoch 26/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1623 - accuracy: 0.9396 - val_loss: 0.3677 - val_accuracy: 0.8886
+Epoch 27/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1588 - accuracy: 0.9412 - val_loss: 0.3813 - val_accuracy: 0.8864
+Epoch 28/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1556 - accuracy: 0.9412 - val_loss: 0.3980 - val_accuracy: 0.8830
+Epoch 29/50
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1515 - accuracy: 0.9432 - val_loss: 0.3953 - val_accuracy: 0.8863
+Epoch 30/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1489 - accuracy: 0.9444 - val_loss: 0.3905 - val_accuracy: 0.8889
+Epoch 31/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1458 - accuracy: 0.9453 - val_loss: 0.3947 - val_accuracy: 0.8856
+Epoch 32/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1444 - accuracy: 0.9448 - val_loss: 0.4130 - val_accuracy: 0.8866
+Epoch 33/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1400 - accuracy: 0.9473 - val_loss: 0.4122 - val_accuracy: 0.8824
+Epoch 34/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1379 - accuracy: 0.9481 - val_loss: 0.4118 - val_accuracy: 0.8885
+Epoch 35/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1346 - accuracy: 0.9494 - val_loss: 0.3933 - val_accuracy: 0.8913
+Epoch 36/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1324 - accuracy: 0.9501 - val_loss: 0.4290 - val_accuracy: 0.8835
+Epoch 37/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.1295 - accuracy: 0.9514 - val_loss: 0.4353 - val_accuracy: 0.8884
+Epoch 38/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1303 - accuracy: 0.9511 - val_loss: 0.4043 - val_accuracy: 0.8904
+Epoch 39/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.1246 - accuracy: 0.9526 - val_loss: 0.4080 - val_accuracy: 0.8896
+Epoch 40/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.1237 - accuracy: 0.9531 - val_loss: 0.4116 - val_accuracy: 0.8908
+Epoch 41/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.1201 - accuracy: 0.9549 - val_loss: 0.4313 - val_accuracy: 0.8873
+Epoch 42/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.1185 - accuracy: 0.9558 - val_loss: 0.4455 - val_accuracy: 0.8848oss: 0.118
+Epoch 43/50
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1174 - accuracy: 0.9564 - val_loss: 0.4593 - val_accuracy: 0.8866
+Epoch 44/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1158 - accuracy: 0.9566 - val_loss: 0.4271 - val_accuracy: 0.8904
+Epoch 45/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.1140 - accuracy: 0.9568 - val_loss: 0.4320 - val_accuracy: 0.8902
+Epoch 46/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1105 - accuracy: 0.9585 - val_loss: 0.4645 - val_accuracy: 0.8853
+Epoch 47/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1110 - accuracy: 0.9575 - val_loss: 0.4445 - val_accuracy: 0.8926
+Epoch 48/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1071 - accuracy: 0.9599 - val_loss: 0.4596 - val_accuracy: 0.8850
+Epoch 49/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1088 - accuracy: 0.9593 - val_loss: 0.4465 - val_accuracy: 0.8919
+Epoch 50/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.1053 - accuracy: 0.9604 - val_loss: 0.4658 - val_accuracy: 0.8922
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-training-history">
+<h3>Check training history<a class="headerlink" href="#check-training-history" title="Permalink to this headline">¶</a></h3>
+<p>We can examine the training history by plotting accuracy and loss against epoch for both the training and the test data.</p>
+<p>Notice that the accuracies for the training and the test data diverge as the model trains. This is a classic symptom of <a class="reference external" href="https://en.wikipedia.org/wiki/Overfitting">overfitting</a>, that is, our model corresponds too closely to the training data so that it cannot fit the test data with an equivalent accuracy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot accuracy</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="n">acc_str</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Accuracy on training data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_&#39;</span> <span class="o">+</span> <span class="n">acc_str</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Accuracy on test data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
+
+<span class="c1"># plot loss</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Loss on training data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Loss on test data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/lecture-6-deep-neural-networks_18_0.png" src="_images/lecture-6-deep-neural-networks_18_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="regularise-and-re-train">
+<h2>4. Regularise and re-train<a class="headerlink" href="#regularise-and-re-train" title="Permalink to this headline">¶</a></h2>
+<p>Dropout, also called dilution, is a regularisation technique to mitigate against overfitting by randomly omitting a certain amount of neurons from a layer. Here we will rebuild our model with <code class="docutils literal notranslate"><span class="pre">Dropout</span></code> between the hidden and the output layers. Let us see whether this can negate the overfitting or not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># build the network architecture</span>
+<span class="n">model_reg</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model_reg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)))</span>
+<span class="n">model_reg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model_reg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">))</span>
+<span class="n">model_reg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+
+<span class="c1"># compile the model</span>
+<span class="n">model_reg</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+                  <span class="n">loss</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">(),</span>
+                  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train the model</span>
+<span class="n">training_history_reg</span> <span class="o">=</span> <span class="n">model_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> 
+                                     <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.6267 - accuracy: 0.7794 - val_loss: 0.4403 - val_accuracy: 0.8402
+Epoch 2/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.4496 - accuracy: 0.8387 - val_loss: 0.4276 - val_accuracy: 0.8426
+Epoch 3/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.4134 - accuracy: 0.8493 - val_loss: 0.3948 - val_accuracy: 0.8570
+Epoch 4/50
+1875/1875 [==============================] - 5s 3ms/step - loss: 0.3951 - accuracy: 0.8559 - val_loss: 0.3752 - val_accuracy: 0.8643
+Epoch 5/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3810 - accuracy: 0.8600 - val_loss: 0.3695 - val_accuracy: 0.8672
+Epoch 6/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3682 - accuracy: 0.8652 - val_loss: 0.3704 - val_accuracy: 0.8673
+Epoch 7/50
+1875/1875 [==============================] - 3s 2ms/step - loss: 0.3592 - accuracy: 0.8674 - val_loss: 0.3642 - val_accuracy: 0.8697
+Epoch 8/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3497 - accuracy: 0.8724 - val_loss: 0.3707 - val_accuracy: 0.8679
+Epoch 9/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3436 - accuracy: 0.8738 - val_loss: 0.3521 - val_accuracy: 0.8754
+Epoch 10/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3355 - accuracy: 0.8754 - val_loss: 0.3656 - val_accuracy: 0.8698
+Epoch 11/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3319 - accuracy: 0.8777 - val_loss: 0.3469 - val_accuracy: 0.8765
+Epoch 12/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3279 - accuracy: 0.8786 - val_loss: 0.3501 - val_accuracy: 0.8771
+Epoch 13/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3227 - accuracy: 0.8806 - val_loss: 0.3499 - val_accuracy: 0.8758
+Epoch 14/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3174 - accuracy: 0.8814 - val_loss: 0.3588 - val_accuracy: 0.8778
+Epoch 15/50
+1875/1875 [==============================] - 5s 2ms/step - loss: 0.3102 - accuracy: 0.8845 - val_loss: 0.3380 - val_accuracy: 0.8838
+Epoch 16/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3113 - accuracy: 0.8840 - val_loss: 0.3496 - val_accuracy: 0.8807
+Epoch 17/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3062 - accuracy: 0.8849 - val_loss: 0.3496 - val_accuracy: 0.8811
+Epoch 18/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3045 - accuracy: 0.8863 - val_loss: 0.3459 - val_accuracy: 0.8760
+Epoch 19/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2960 - accuracy: 0.8875 - val_loss: 0.3406 - val_accuracy: 0.8828
+Epoch 20/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2978 - accuracy: 0.8870 - val_loss: 0.3352 - val_accuracy: 0.8844
+Epoch 21/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2932 - accuracy: 0.8904 - val_loss: 0.3331 - val_accuracy: 0.8825
+Epoch 22/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2908 - accuracy: 0.8906 - val_loss: 0.3431 - val_accuracy: 0.8828
+Epoch 23/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2889 - accuracy: 0.8904 - val_loss: 0.3496 - val_accuracy: 0.8820
+Epoch 24/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2860 - accuracy: 0.8926 - val_loss: 0.3322 - val_accuracy: 0.8853
+Epoch 25/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2849 - accuracy: 0.8927 - val_loss: 0.3447 - val_accuracy: 0.8815
+Epoch 26/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2820 - accuracy: 0.8931 - val_loss: 0.3613 - val_accuracy: 0.8789
+Epoch 27/50
+1875/1875 [==============================] - 5s 2ms/step - loss: 0.2783 - accuracy: 0.8952 - val_loss: 0.3409 - val_accuracy: 0.8834
+Epoch 28/50
+1875/1875 [==============================] - 5s 3ms/step - loss: 0.2788 - accuracy: 0.8954 - val_loss: 0.3367 - val_accuracy: 0.8838
+Epoch 29/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2745 - accuracy: 0.8969 - val_loss: 0.3441 - val_accuracy: 0.8836
+Epoch 30/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2711 - accuracy: 0.8962 - val_loss: 0.3472 - val_accuracy: 0.8849
+Epoch 31/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2708 - accuracy: 0.8972 - val_loss: 0.3358 - val_accuracy: 0.8847
+Epoch 32/50
+1875/1875 [==============================] - 5s 3ms/step - loss: 0.2715 - accuracy: 0.8976 - val_loss: 0.3315 - val_accuracy: 0.8881
+Epoch 33/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2701 - accuracy: 0.8977 - val_loss: 0.3389 - val_accuracy: 0.8864
+Epoch 34/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2664 - accuracy: 0.8986 - val_loss: 0.3446 - val_accuracy: 0.8848
+Epoch 35/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2640 - accuracy: 0.8995 - val_loss: 0.3423 - val_accuracy: 0.8891
+Epoch 36/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2630 - accuracy: 0.9007 - val_loss: 0.3390 - val_accuracy: 0.8847
+Epoch 37/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2612 - accuracy: 0.9007 - val_loss: 0.3447 - val_accuracy: 0.8874
+Epoch 38/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2640 - accuracy: 0.8997 - val_loss: 0.3410 - val_accuracy: 0.8895
+Epoch 39/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2601 - accuracy: 0.9007 - val_loss: 0.3382 - val_accuracy: 0.8885
+Epoch 40/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2581 - accuracy: 0.9013 - val_loss: 0.3447 - val_accuracy: 0.8868
+Epoch 41/50
+1875/1875 [==============================] - 5s 3ms/step - loss: 0.2579 - accuracy: 0.9028 - val_loss: 0.3439 - val_accuracy: 0.8822
+Epoch 42/50
+1875/1875 [==============================] - 5s 3ms/step - loss: 0.2559 - accuracy: 0.9027 - val_loss: 0.3504 - val_accuracy: 0.8820
+Epoch 43/50
+1875/1875 [==============================] - 5s 3ms/step - loss: 0.2523 - accuracy: 0.9030 - val_loss: 0.3349 - val_accuracy: 0.8870
+Epoch 44/50
+1875/1875 [==============================] - 5s 3ms/step - loss: 0.2501 - accuracy: 0.9048 - val_loss: 0.3449 - val_accuracy: 0.8859
+Epoch 45/50
+1875/1875 [==============================] - 5s 3ms/step - loss: 0.2507 - accuracy: 0.9038 - val_loss: 0.3550 - val_accuracy: 0.8899
+Epoch 46/50
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2508 - accuracy: 0.9038 - val_loss: 0.3433 - val_accuracy: 0.8842
+Epoch 47/50
+1875/1875 [==============================] - 5s 3ms/step - loss: 0.2448 - accuracy: 0.9055 - val_loss: 0.3493 - val_accuracy: 0.8891
+Epoch 48/50
+1875/1875 [==============================] - 5s 2ms/step - loss: 0.2494 - accuracy: 0.9051 - val_loss: 0.3487 - val_accuracy: 0.8891
+Epoch 49/50
+1875/1875 [==============================] - 6s 3ms/step - loss: 0.2484 - accuracy: 0.9058 - val_loss: 0.3498 - val_accuracy: 0.8859
+Epoch 50/50
+1875/1875 [==============================] - 6s 3ms/step - loss: 0.2426 - accuracy: 0.9063 - val_loss: 0.3588 - val_accuracy: 0.8864
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot accuracy</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history_reg</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="n">acc_str</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Accuracy on training data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history_reg</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_&#39;</span> <span class="o">+</span> <span class="n">acc_str</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Accuracy on test data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_&#39;</span> <span class="o">+</span> <span class="n">acc_str</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Accuracy on test data (no dropout)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
+
+<span class="c1"># plot loss</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history_reg</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Loss on training data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history_reg</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Loss on test data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">training_history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Loss on test data (no dropout)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/lecture-6-deep-neural-networks_22_0.png" src="_images/lecture-6-deep-neural-networks_22_0.png" />
+</div>
+</div>
+</section>
+<section id="make-predictions">
+<h2>5. Make predictions<a class="headerlink" href="#make-predictions" title="Permalink to this headline">¶</a></h2>
+<p>Finally, we can use our trained model to make predictions. Here we show some wrong predictions for the test data, from which we may get some ideas about what kinds of images baffle our model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use test images to make predictions</span>
+<span class="n">pred_lables</span> <span class="o">=</span> <span class="n">model_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_images</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get the indices of wrong predictions</span>
+<span class="n">id_wrong</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">pred_lables</span> <span class="o">!=</span> <span class="n">test_labels</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of test data: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">test_labels</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of wrong predictions: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">id_wrong</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+
+<span class="c1"># plot the wrong predictions</span>
+<span class="n">nrows</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">ncols</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">ncols</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span> <span class="o">*</span> <span class="mf">2.2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">iplot</span><span class="p">,</span> <span class="n">idata</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">id_wrong</span><span class="p">,</span> <span class="n">nrows</span> <span class="o">*</span> <span class="n">ncols</span><span class="p">)):</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">test_labels</span><span class="p">[</span><span class="n">idata</span><span class="p">],</span> <span class="n">string_labels</span><span class="p">[</span><span class="n">test_labels</span><span class="p">[</span><span class="n">idata</span><span class="p">]])</span>
+    <span class="n">label2</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pred_lables</span><span class="p">[</span><span class="n">idata</span><span class="p">],</span> <span class="n">string_labels</span><span class="p">[</span><span class="n">pred_lables</span><span class="p">[</span><span class="n">idata</span><span class="p">]])</span>
+    <span class="n">subplot_image</span><span class="p">(</span><span class="n">test_images</span><span class="p">[</span><span class="n">idata</span><span class="p">],</span> <span class="n">label</span><span class="p">,</span> <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">iplot</span><span class="p">,</span> <span class="n">label2</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of test data: 10000
+Number of wrong predictions: 1136
+</pre></div>
+</div>
+<img alt="_images/lecture-6-deep-neural-networks_25_1.png" src="_images/lecture-6-deep-neural-networks_25_1.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Change some hyperparameters in <code class="docutils literal notranslate"><span class="pre">model.compile()</span></code> and <code class="docutils literal notranslate"><span class="pre">model.fit()</span></code> to see their effects (see reference of <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/Model">tf.keras.Model</a>);</p></li>
+<li><p>Use two hidden layers (with dropout), e.g., respectively with sizes 256 and 64, and see whether the accuracy can be improved or not;</p></li>
+<li><p>Change the output from 0-1 binary to probability, i.e., the one-hot vector represents the probabilities that an image belongs to the classes; this can be achieved by 1) removing <code class="docutils literal notranslate"><span class="pre">activation='sigmoid'</span></code> from the output layer and 2) appending a <code class="docutils literal notranslate"><span class="pre">Softmax</span></code> layer after the trained model, e.g.,</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">probability_model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span><span class="n">model_reg</span><span class="p">,</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Softmax</span><span class="p">()])</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="lecture-5-decision-trees-classification.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">6: Classification using decision trees</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Keith T. Butler<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
