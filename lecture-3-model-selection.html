@@ -281,25 +281,8 @@
        Pipelines
       </a>
      </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Model selection
-    </a>
-    <ul class="nav section-nav flex-column">
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id2">
-       Model validation the wrong way
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id3">
-       Model validation the right way
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id4">
+      <a class="reference internal nav-link" href="#id1">
        Cross-validation
       </a>
      </li>
@@ -389,25 +372,8 @@
        Pipelines
       </a>
      </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Model selection
-    </a>
-    <ul class="nav section-nav flex-column">
      <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id2">
-       Model validation the wrong way
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id3">
-       Model validation the right way
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id4">
+      <a class="reference internal nav-link" href="#id1">
        Cross-validation
       </a>
      </li>
@@ -930,93 +896,8 @@ Fit a linear regression
 </div>
 </div>
 </section>
-</section>
 <section id="id1">
-<h2>Model selection<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>A ML strategy might looko like:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Choose a class of model
-Choose model hyperparameters
-Fit the model to the training data
-Use the model to predict labels for new data
-</pre></div>
-</div>
-<p>The first two pieces of this—the choice of model and choice of hyperparameters—are perhaps the most important part of using these tools and techniques effectively. In order to make an informed choice, we need a way to validate that our model and our hyperparameters are a good fit to the data. While this may sound simple, there are some pitfalls that you must avoid to do this effectively.</p>
-<section id="id2">
-<h3>Model validation the wrong way<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Let’s demonstrate the naive approach to validation using the Iris data, which we saw in the previous section. We will start by loading the data:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
-<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>We set up a model with some hyperparameters to try to model this data</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">y_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Finally, we compute the fraction of correctly labeled points</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_model</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
-</pre></div>
-</div>
-</div>
-</div>
-<p>We see an accuracy score of 1.0, which indicates that 100% of points were correctly labeled by our model! But is this truly measuring the expected accuracy? Have we really come upon a model that we expect to be correct 100% of the time?</p>
-<p>As you may have gathered, the answer is no. In fact, this approach contains a fundamental flaw: it trains and evaluates the model on the same data.</p>
-</section>
-<section id="id3">
-<h3>Model validation the right way<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>So what can be done? A better sense of a model’s performance can be found using what’s known as a holdout set: that is, we hold back some subset of the data from the training of the model, and then use this holdout set to check the model performance. This splitting can be done using the <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> utility in Scikit-Learn</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="c1"># split the data with 50% in each set</span>
-<span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                  <span class="n">train_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-
-<span class="c1"># fit the model on one set of data</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
-
-<span class="c1"># evaluate the model on the second set of data</span>
-<span class="n">y2_model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
-<span class="n">accuracy_score</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">y2_model</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9066666666666666
-</pre></div>
-</div>
-</div>
-</div>
-<p>We see here a more reasonable result: the nearest-neighbor classifier is about 90% accurate on this hold-out set. The hold-out set is similar to unknown data, because the model has not “seen” it before.</p>
-</section>
-<section id="id4">
-<h3>Cross-validation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>Cross-validation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>One disadvantage of using a holdout set for model validation is that we have lost a portion of our data to the model training. In the above case, half the dataset does not contribute to the training of the model! This is not optimal, and can cause problems – especially if the initial set of training data is small.</p>
 <p>One way to address this is to use cross-validation; that is, to do a sequence of fits where each subset of the data is used both as a training set and as a validation set.</p>
 <p>Here we split the data into five groups, and use each of them in turn to evaluate the model fit on the other 4/5 of the data. This would be rather tedious to do by hand, and so we can use Scikit-Learn’s cross_val_score convenience routine to do it succinctly.</p>
@@ -1073,7 +954,7 @@ Which degree do we think best fits to the data?</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff06e09b220&gt;
 </pre></div>
 </div>
-<img alt="_images/lecture-3-model-selection_57_1.png" src="_images/lecture-3-model-selection_57_1.png" />
+<img alt="_images/lecture-3-model-selection_46_1.png" src="_images/lecture-3-model-selection_46_1.png" />
 </div>
 </div>
 <p>We can use the scikitlearn validation curve function to investigate how the training and validation loss evolves with the complexity of the model. Here we look at polynomial degress from 0 to 20.</p>
@@ -1098,7 +979,7 @@ Which degree do we think best fits to the data?</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;score&#39;)
 </pre></div>
 </div>
-<img alt="_images/lecture-3-model-selection_59_1.png" src="_images/lecture-3-model-selection_59_1.png" />
+<img alt="_images/lecture-3-model-selection_48_1.png" src="_images/lecture-3-model-selection_48_1.png" />
 </div>
 </div>
 <p>It looks like, beyond a third order polynomial the validation performance starts to deteriorate.</p>
@@ -1119,7 +1000,7 @@ Which degree do we think best fits to the data?</p>
  10.902869392322714)
 </pre></div>
 </div>
-<img alt="_images/lecture-3-model-selection_61_1.png" src="_images/lecture-3-model-selection_61_1.png" />
+<img alt="_images/lecture-3-model-selection_50_1.png" src="_images/lecture-3-model-selection_50_1.png" />
 </div>
 </div>
 </section>
