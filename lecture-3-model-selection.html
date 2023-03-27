@@ -281,11 +281,6 @@
        Pipelines
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id1">
-       Cross-validation
-      </a>
-     </li>
     </ul>
    </li>
   </ul>
@@ -370,11 +365,6 @@
      <li class="toc-h3 nav-item toc-entry">
       <a class="reference internal nav-link" href="#pipelines">
        Pipelines
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id1">
-       Cross-validation
       </a>
      </li>
     </ul>
@@ -896,25 +886,6 @@ Fit a linear regression
 </div>
 </div>
 </section>
-<section id="id1">
-<h3>Cross-validation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>One disadvantage of using a holdout set for model validation is that we have lost a portion of our data to the model training. In the above case, half the dataset does not contribute to the training of the model! This is not optimal, and can cause problems – especially if the initial set of training data is small.</p>
-<p>One way to address this is to use cross-validation; that is, to do a sequence of fits where each subset of the data is used both as a training set and as a validation set.</p>
-<p>Here we split the data into five groups, and use each of them in turn to evaluate the model fit on the other 4/5 of the data. This would be rather tedious to do by hand, and so we can use Scikit-Learn’s cross_val_score convenience routine to do it succinctly.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
-<span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.96666667, 0.96666667, 0.93333333, 0.93333333, 1.        ])
-</pre></div>
-</div>
-</div>
-</div>
-</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="advanced-build-a-validation-pipeline">
@@ -954,7 +925,7 @@ Which degree do we think best fits to the data?</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff06e09b220&gt;
 </pre></div>
 </div>
-<img alt="_images/lecture-3-model-selection_46_1.png" src="_images/lecture-3-model-selection_46_1.png" />
+<img alt="_images/lecture-3-model-selection_44_1.png" src="_images/lecture-3-model-selection_44_1.png" />
 </div>
 </div>
 <p>We can use the scikitlearn validation curve function to investigate how the training and validation loss evolves with the complexity of the model. Here we look at polynomial degress from 0 to 20.</p>
@@ -979,7 +950,7 @@ Which degree do we think best fits to the data?</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;score&#39;)
 </pre></div>
 </div>
-<img alt="_images/lecture-3-model-selection_48_1.png" src="_images/lecture-3-model-selection_48_1.png" />
+<img alt="_images/lecture-3-model-selection_46_1.png" src="_images/lecture-3-model-selection_46_1.png" />
 </div>
 </div>
 <p>It looks like, beyond a third order polynomial the validation performance starts to deteriorate.</p>
@@ -1000,7 +971,7 @@ Which degree do we think best fits to the data?</p>
  10.902869392322714)
 </pre></div>
 </div>
-<img alt="_images/lecture-3-model-selection_50_1.png" src="_images/lecture-3-model-selection_50_1.png" />
+<img alt="_images/lecture-3-model-selection_48_1.png" src="_images/lecture-3-model-selection_48_1.png" />
 </div>
 </div>
 </section>
