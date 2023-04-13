@@ -18,4 +18,5 @@ The eBook code is all executable in binder, using the launch button at the top o
 <img src="./images/naive-bayes.png" alt="box" width="200px"> | <img src="./images/decision-trees.png" alt="box" width="200px">
 [7 Multi-layer Perceptrons](https://keeeto.github.io/ebook-data-analysis/lecture-6-deep-neural-networks.html) | [8 Convolutional Neural Networks](https://keeeto.github.io/ebook-data-analysis/lecture-7-cnns.html)
 <img src="./images/mlp.png" alt="box" width="200px"> | <img src="./images/cnn.png" alt="box" width="200px">
+[9 Long Short Term Memory Networks](https://keeeto.github.io/ebook-data-analysis/lecture-7-lstms.html) |
 
